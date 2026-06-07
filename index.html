@@ -1,112 +1,168 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HimArc</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HimArc</title>
 
 <style>
-
 body{
-background:#0f172a;
-color:white;
+background:#071233;
 font-family:Arial,sans-serif;
+color:white;
 text-align:center;
 padding:20px;
 }
 
+h1{
+font-size:48px;
+}
+
 .card{
-background:#1e293b;
-padding:20px;
+background:#1c2948;
+padding:25px;
 margin:20px auto;
-border-radius:12px;
-max-width:500px;
+max-width:700px;
+border-radius:20px;
 }
 
 button{
-padding:12px 20px;
-border:none;
-border-radius:8px;
-background:#2563eb;
+background:#3b63f0;
 color:white;
+border:none;
+padding:15px 25px;
+border-radius:12px;
 cursor:pointer;
+font-size:16px;
 }
 
 input{
 padding:12px;
-border:none;
-border-radius:8px;
 width:80%;
-max-width:300px;
+border-radius:10px;
+border:none;
+margin:10px;
 }
 
-h1{
-margin-top:20px;
+a{
+display:block;
+background:#3b63f0;
+color:white;
+text-decoration:none;
+padding:12px;
+margin:10px;
+border-radius:10px;
 }
-
 </style>
-
 </head>
 
 <body>
 
-<h1>HimArc</h1>
+<h1>🚀 HimArc</h1>
 
 <div class="card">
-
 <h2>ARC Testnet DEX</h2>
-
 <p>Build. Learn. Swap.</p>
 
-<button onclick="connectWallet()">
-Connect Wallet
-</button>
+<button onclick="connectWallet()">Connect Wallet</button>
 
-<p id="wallet">
-Wallet: Not Connected
-</p>
-
+<p id="wallet">Wallet: Not Connected</p>
 </div>
 
 <div class="card">
-
 <h2>👤 User Login</h2>
 
-<input
-type="email"
-id="email"
-placeholder="Enter Email">
+<input type="email" id="email" placeholder="Enter Email">
 
-<br><br>
+<br>
 
-<button onclick="loginUser()">
-Login
-</button>
+<button onclick="login()">Login</button>
 
-<p id="user">
-Not Logged In
-</p>
-
+<p id="user"></p>
 </div>
 
 <div class="card">
-
 <h2>🏆 Dashboard</h2>
 
-<p id="xp">
-XP: 0
-</p>
+<p id="xp">XP: 400</p>
 
-<p id="level">
-Level: 1
-</p>
+<p id="level">Level: 1</p>
 
-<button onclick="gainXP()">
-Complete Quest
-</button>
+<button onclick="addXP()">Complete Quest</button>
+</div>
 
+<div class="card">
+<h2>🌐 ARC Ecosystem</h2>
+
+<a href="https://community.arc.io/home" target="_blank">
+ARC Community Hub
+</a>
+
+<a href="https://app.onmi.fun/swap?chain=ARC_TESTNET" target="_blank">
+Omni Swap
+</a>
+
+<a href="https://faucet.circle.com/" target="_blank">
+Circle Faucet
+</a>
+
+<a href="https://docs.arc.network/" target="_blank">
+ARC Docs
+</a>
+
+<a href="https://x.com/arc" target="_blank">
+ARC X
+</a>
 </div>
 
 <script>
+
+let xp = localStorage.getItem("xp") || 400;
+
+updateXP();
+
+function addXP(){
+
+xp = parseInt(xp) + 100;
+
+localStorage.setItem("xp",xp);
+
+updateXP();
+}
+
+function updateXP(){
+
+document.getElementById("xp").innerText =
+"XP: " + xp;
+
+let level = Math.floor(xp/500)+1;
+
+document.getElementById("level").innerText =
+"Level: " + level;
+}
+
+function login(){
+
+let email =
+document.getElementById("email").value;
+
+localStorage.setItem("email",email);
+
+document.getElementById("user").innerText =
+"Logged in: " + email;
+}
+
+window.onload=function(){
+
+let savedEmail =
+localStorage.getItem("email");
+
+if(savedEmail){
+
+document.getElementById("user").innerText =
+"Logged in: " + savedEmail;
+}
+}
 
 async function connectWallet(){
 
@@ -122,87 +178,15 @@ method:"eth_requestAccounts"
 document.getElementById("wallet").innerText =
 "Wallet: " + accounts[0];
 
-}
-catch(err){
+}catch(err){
 
 alert("Wallet connection cancelled");
-
 }
 
 }else{
 
 alert("MetaMask not found");
-
 }
-
-}
-
-function loginUser(){
-
-let email =
-document.getElementById("email").value;
-
-if(email===""){
-
-alert("Enter Email");
-
-return;
-
-}
-
-localStorage.setItem(
-"himarc_user",
-email
-);
-
-document.getElementById("user").innerText =
-"Logged in: " + email;
-
-}
-
-let savedUser =
-localStorage.getItem("himarc_user");
-
-if(savedUser){
-
-document.getElementById("user").innerText =
-"Logged in: " + savedUser;
-
-}
-
-let xp =
-parseInt(
-localStorage.getItem("himarc_xp")
-) || 0;
-
-updateDashboard();
-
-function gainXP(){
-
-xp += 100;
-
-localStorage.setItem(
-"himarc_xp",
-xp
-);
-
-updateDashboard();
-
-}
-
-function updateDashboard(){
-
-document.getElementById("xp")
-.innerText =
-"XP: " + xp;
-
-let level =
-Math.floor(xp/500)+1;
-
-document.getElementById("level")
-.innerText =
-"Level: " + level;
-
 }
 
 </script>
