@@ -3,32 +3,51 @@
 <head>
 <title>HimArc</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{
-  background:#0f172a;
-  color:white;
-  font-family:Arial,sans-serif;
-  text-align:center;
-  padding:40px;
+background:#0f172a;
+color:white;
+font-family:Arial,sans-serif;
+text-align:center;
+padding:20px;
 }
+
 .card{
-  background:#1e293b;
-  padding:20px;
-  border-radius:12px;
-  margin-top:20px;
+background:#1e293b;
+padding:20px;
+margin:20px auto;
+border-radius:12px;
+max-width:500px;
 }
+
 button{
-  padding:12px 20px;
-  border:none;
-  border-radius:8px;
-  background:#2563eb;
-  color:white;
+padding:12px 20px;
+border:none;
+border-radius:8px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+input{
+padding:12px;
+border:none;
+border-radius:8px;
+width:80%;
+max-width:300px;
+}
+
+h1{
+margin-top:30px;
 }
 </style>
+
 </head>
+
 <body>
 
-<h1> HimArc</h1>
+<h1>🚀 HimArc</h1>
 
 <div class="card">
 <h2>ARC Testnet DEX</h2>
@@ -38,31 +57,95 @@ button{
 Connect Wallet
 </button>
 
-<p id="wallet">Wallet: Not Connected</p>
+<p id="wallet">
+Wallet: Not Connected
+</p>
+</div>
+
+<div class="card">
+<h2>👤 User Login</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
+
+<br><br>
+
+<button onclick="loginUser()">
+Login
+</button>
+
+<p id="user">
+Not Logged In
+</p>
+
 </div>
 
 <script>
+
 async function connectWallet(){
 
 if(typeof window.ethereum !== "undefined"){
 
 try{
-const accounts = await ethereum.request({
+
+const accounts =
+await ethereum.request({
 method:"eth_requestAccounts"
 });
 
 document.getElementById("wallet").innerText =
 "Wallet: " + accounts[0];
 
-}catch(err){
+}
+catch(err){
+
 alert("Wallet connection cancelled");
+
 }
 
 }else{
+
 alert("MetaMask not found");
+
 }
 
 }
+
+function loginUser(){
+
+let email =
+document.getElementById("email").value;
+
+if(email===""){
+
+alert("Enter Email");
+
+return;
+
+}
+
+localStorage.setItem(
+"himarc_user",
+email
+);
+
+document.getElementById("user").innerText =
+"Logged in: " + email;
+
+}
+
+let savedUser =
+localStorage.getItem("himarc_user");
+
+if(savedUser){
+
+document.getElementById("user").innerText =
+"Logged in: " + savedUser;
+
+}
+
 </script>
 
 </body>
