@@ -12,10 +12,11 @@ font-family:Arial,sans-serif;
 color:white;
 text-align:center;
 padding:20px;
+margin:0;
 }
 
 h1{
-font-size:48px;
+font-size:42px;
 }
 
 .card{
@@ -36,9 +37,14 @@ cursor:pointer;
 font-size:16px;
 }
 
-input{
+button:hover{
+opacity:0.9;
+}
+
+input,select{
 padding:12px;
 width:80%;
+max-width:350px;
 border-radius:10px;
 border:none;
 margin:10px;
@@ -54,6 +60,7 @@ margin:10px;
 border-radius:10px;
 }
 </style>
+
 </head>
 
 <body>
@@ -61,37 +68,91 @@ border-radius:10px;
 <h1>🚀 HimArc</h1>
 
 <div class="card">
+
 <h2>ARC Testnet DEX</h2>
+
 <p>Build. Learn. Swap.</p>
 
-<button onclick="connectWallet()">Connect Wallet</button>
+<button onclick="connectWallet()">
+Connect Wallet
+</button>
 
-<p id="wallet">Wallet: Not Connected</p>
+<p id="wallet">
+Wallet: Not Connected
+</p>
+
 </div>
 
 <div class="card">
+
 <h2>👤 User Login</h2>
 
-<input type="email" id="email" placeholder="Enter Email">
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
 
 <br>
 
-<button onclick="login()">Login</button>
+<button onclick="login()">
+Login
+</button>
 
 <p id="user"></p>
+
 </div>
 
 <div class="card">
+
 <h2>🏆 Dashboard</h2>
 
 <p id="xp">XP: 400</p>
 
 <p id="level">Level: 1</p>
 
-<button onclick="addXP()">Complete Quest</button>
+<button onclick="addXP()">
+Complete Quest
+</button>
+
 </div>
 
 <div class="card">
+
+<h2>🔄 Swap Tokens</h2>
+
+<select id="tokenA">
+<option>ARC</option>
+<option>USDC</option>
+<option>TEST</option>
+</select>
+
+<br>
+
+<select id="tokenB">
+<option>USDC</option>
+<option>ARC</option>
+<option>TEST</option>
+</select>
+
+<br>
+
+<input
+type="number"
+id="amount"
+placeholder="Amount">
+
+<br>
+
+<button onclick="swapToken()">
+Swap
+</button>
+
+<p id="swapResult"></p>
+
+</div>
+
+<div class="card">
+
 <h2>🌐 ARC Ecosystem</h2>
 
 <a href="https://community.arc.io/home" target="_blank">
@@ -113,11 +174,13 @@ ARC Docs
 <a href="https://x.com/arc" target="_blank">
 ARC X
 </a>
+
 </div>
 
 <script>
 
-let xp = localStorage.getItem("xp") || 400;
+let xp =
+localStorage.getItem("xp") || 400;
 
 updateXP();
 
@@ -125,9 +188,13 @@ function addXP(){
 
 xp = parseInt(xp) + 100;
 
-localStorage.setItem("xp",xp);
+localStorage.setItem(
+"xp",
+xp
+);
 
 updateXP();
+
 }
 
 function updateXP(){
@@ -135,10 +202,12 @@ function updateXP(){
 document.getElementById("xp").innerText =
 "XP: " + xp;
 
-let level = Math.floor(xp/500)+1;
+let level =
+Math.floor(xp/500)+1;
 
 document.getElementById("level").innerText =
 "Level: " + level;
+
 }
 
 function login(){
@@ -146,10 +215,22 @@ function login(){
 let email =
 document.getElementById("email").value;
 
-localStorage.setItem("email",email);
+if(email===""){
+
+alert("Enter Email");
+
+return;
+
+}
+
+localStorage.setItem(
+"email",
+email
+);
 
 document.getElementById("user").innerText =
 "Logged in: " + email;
+
 }
 
 window.onload=function(){
@@ -161,7 +242,9 @@ if(savedEmail){
 
 document.getElementById("user").innerText =
 "Logged in: " + savedEmail;
+
 }
+
 }
 
 async function connectWallet(){
@@ -178,15 +261,48 @@ method:"eth_requestAccounts"
 document.getElementById("wallet").innerText =
 "Wallet: " + accounts[0];
 
-}catch(err){
+}
+catch(err){
 
 alert("Wallet connection cancelled");
+
 }
 
 }else{
 
 alert("MetaMask not found");
+
 }
+
+}
+
+function swapToken(){
+
+let tokenA =
+document.getElementById("tokenA").value;
+
+let tokenB =
+document.getElementById("tokenB").value;
+
+let amount =
+document.getElementById("amount").value;
+
+if(amount===""){
+
+alert("Enter Amount");
+
+return;
+
+}
+
+document.getElementById("swapResult").innerText =
+"Swapped " +
+amount +
+" " +
+tokenA +
+" → " +
+tokenB;
+
 }
 
 </script>
