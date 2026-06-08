@@ -197,20 +197,20 @@ Complete Quest
 <h2>🔄 Swap Tokens</h2>
 
 <select id="tokenA">
-<option>ARC</option>
+<option>ETH</option>
 <option>USDC</option>
-<option>TEST</option>
 </select>
 
-<br>
+<input type="number" id="amount" placeholder="Amount">
 
 <select id="tokenB">
 <option>USDC</option>
-<option>ARC</option>
-<option>TEST</option>
+<option>ETH</option>
 </select>
 
-<br>
+<button onclick="swapToken()">Swap</button>
+
+<p id="swapResult"></p>
 
 <input
 type="number"
