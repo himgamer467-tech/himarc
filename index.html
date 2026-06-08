@@ -59,6 +59,52 @@ padding:12px;
 margin:10px;
 border-radius:10px;
 }
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+body{
+background: linear-gradient(
+135deg,
+#071233,
+#0f172a,
+#1e3a8a
+);
+background-size:400% 400%;
+animation:gradientMove 15s ease infinite;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+button{
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+h1{
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
 </style>
 
 </head>
