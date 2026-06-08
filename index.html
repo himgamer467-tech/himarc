@@ -105,6 +105,27 @@ animation:float 3s ease-in-out infinite;
 50%{transform:translateY(-10px);}
 100%{transform:translateY(0);}
 }
+
+.particle{
+position:fixed;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+opacity:0.4;
+animation:snowfall linear infinite;
+pointer-events:none;
+}
+
+@keyframes snowfall{
+0%{
+transform:translateY(-10px);
+}
+100%{
+transform:translateY(100vh);
+}
+}
+  
 </style>
 
 </head>
